@@ -38,41 +38,26 @@ def dydx(mid_y):
 
 
 # Ploting data1
-plot_data1(
-    period1_log,
-    mass1_log,
-    [-0.5,4],
-    [-3,1.5],
-    '$log_{10}(P_{orb}/day)$',
-    '$log_{10}(M_p/M_{Jup})$',
-    'Single host Star'
+common_function(
+    'Single host Star',
+    "data1"
 )
 
 # Ploting initial guess 
-plot_initial_guess(
-    period1_log,
-    mass1_log,
+common_function(
+    'Single host Star',
+    "data1_guess",
     x,
-    y,
-    [-0.5,4],
-    [-3,1.5],
-    '$log_{10}(P_{orb}/day)$',
-    '$log_{10}(M_p/M_{Jup})$',
-    'Single host Star'
+    y
 )
 
 
 #Ploting Segments
-plot_segments(
-    period1_log,
-    mass1_log,
+common_function(
+    'Single host Star(Segments)',
+    "data1_segments",
     x,
     y,
-    [-0.5,4],
-    [-3,1.5],
-    '$log_{10}(P_{orb}/day)$',
-    '$log_{10}(M_p/M_{Jup})$',
-    'Single host Star(Segments)',
     k,
     mid_y
 )
@@ -157,16 +142,13 @@ for i in range(len(mid_y)):
     bins = np.arange(0, 8)
 
     # Plotting aligned bins
-    plot_aligned_segments(
-        period1_log,
-        mass1_log,
+    common_function(
+        'Single host Star',
+        '1_aligned_bin',
         x,
         y,
-        [-0.5,4],
-        [-3,1.5],
-        '$log_{10}(P_{orb}/day)$',
-        '$log_{10}(M_p/M_{Jup})$',
-        'Single host Star',
+        [],
+        [],
         i
     )
     
@@ -201,20 +183,17 @@ for i in range(len(mid_y)):
     plt.close(fig2)
 
     # Plotting Boundary
-    plot_boundary(
-        period1_log,
-        mass1_log,
+    common_function(
+        "Single host Star",
+        "1_boundary_bin",
         b_x,
         b_y,
+        [],
+        [],
+        i,
         x1,
         y1,
-        y2,
-        [-0.5,4],
-        [-3,1.5],
-        "$log_{10}(P_{orb}/day)$",
-        "$log_{10}(M_p/M_{Jup})$",
-        "Single host Star",
-        i
+        y2
     )
     
 points_x = np.array(points_x)
@@ -223,20 +202,11 @@ print(boundary_idx)
 
 # Plotting Boundary Bin
 
-print(k)
 
 plot_boundary_bin(
-       period1_log,
-       mass1_log,
        points_x,
        points_y,
        mid_y,
-       x1,
-       y1,
-       [-0.5,4],
-       [-3,1.5],
-       "$log_{10}(P_{orb}/day)$",
-       "$log_{10}(M_p/M_{Jup})$",
        "Single Host Star(Boundary Bins)",
        k
    )
@@ -255,16 +225,11 @@ x = C[0]*y**2 + C[1]*y + C[2]
 print(C)
 
 #Plotting Result
-plot_result(
-       period1_log,
-       mass1_log,
-       x,
-       y,
-       [-0.5,4],
-       [-3,1.5],
-       "$log_{10}(P_{orb}/day)$",
-       "$log_{10}(M_p/M_{Jup})$",
+common_function(
        "Single Host Star(Boundary)",
+       "1_result",
+       x,
+       y
    )
 
 
