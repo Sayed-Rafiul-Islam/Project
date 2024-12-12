@@ -221,23 +221,26 @@ points_x = np.array(points_x)
 points_y = np.array(points_y)
 print(boundary_idx)
 
-#Boundary bin ploting
-plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
-plt.scatter(points_x, points_y, s=1, c='black', marker='o')
-for i in range(len(mid_y)+1):
-    x1 = np.linspace(-0.5,4,500)
-    y1 = np.repeat(k[i], 500)
-    plt.plot(x1,y1,"-")
-plt.xlim([-0.5,4])
-plt.ylim(-3,1.5)
-plt.xticks(np.arange(-0.5,4.5,0.5))
-plt.yticks(np.arange(-3,2,0.5))
-plt.xlabel(r"$log_{10}(P_{orb}/day)$")
-plt.ylabel(r"$log_{10}(M_p/M_{Jup})$")
-plt.title("Single Host Star(Boundary Bins)")
-fig4 = plt.savefig(os.path.join(output_dir, "boundary.png"), format="png", bbox_inches="tight")   
-plt.show()
-plt.close(fig4)
+# Plotting Boundary Bin
+
+print(k)
+
+plot_boundary_bin(
+       period1_log,
+       mass1_log,
+       points_x,
+       points_y,
+       mid_y,
+       x1,
+       y1,
+       [-0.5,4],
+       [-3,1.5],
+       "$log_{10}(P_{orb}/day)$",
+       "$log_{10}(M_p/M_{Jup})$",
+       "Single Host Star(Boundary Bins)",
+       k
+   )
+
 
 #curvefitting
 def func(y,a,b,d):
@@ -251,19 +254,18 @@ C = np.matmul(np.linalg.inv(A), B)
 x = C[0]*y**2 + C[1]*y + C[2]
 print(C)
 
-#result ploting   
-plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
-plt.plot(x, y,'black')
-plt.xlim([-0.5,4])
-plt.ylim(-3,1.5)
-plt.xticks(np.arange(-0.5,4.5,0.5))
-plt.yticks(np.arange(-3,2,0.5))
-plt.xlabel(r"$log_{10}(P_{orb}/day)$")
-plt.ylabel(r"$log_{10}(M_p/M_{Jup})$")
-plt.title("Single Host Star(Boundary)")
-fig5 = plt.savefig(os.path.join(output_dir, "1_result.png"), format="png", bbox_inches="tight")   
-plt.show()
-plt.close(fig5)
+#Plotting Result
+plot_result(
+       period1_log,
+       mass1_log,
+       x,
+       y,
+       [-0.5,4],
+       [-3,1.5],
+       "$log_{10}(P_{orb}/day)$",
+       "$log_{10}(M_p/M_{Jup})$",
+       "Single Host Star(Boundary)",
+   )
 
 
 # ------------------------------------------------------------- Questions
