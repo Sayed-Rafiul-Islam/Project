@@ -60,25 +60,24 @@ plot_initial_guess(
 )
 
 
+#Ploting Segments
+plot_segments(
+    period1_log,
+    mass1_log,
+    x,
+    y,
+    [-0.5,4],
+    [-3,1.5],
+    '$log_{10}(P_{orb}/day)$',
+    '$log_{10}(M_p/M_{Jup})$',
+    'Single host Star(Segments)',
+    k,
+    mid_y
+)
 
-# #segments ploting
-# plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
-# plt.plot(x(y), y, "black")
-# for i in range(len(mid_y)+1):
 
-#     x1 = np.linspace(-0.5,4,500)
-#     y1 = np.repeat(k[i], 500)
 
-#     plt.plot(x1,y1,"-")
-# plt.xlim([-0.5,4])
-# plt.ylim(-3,1.5)
-# plt.xticks(np.arange(-0.5,4.5,0.5))
-# plt.yticks(np.arange(-3,2,0.5))
-# plt.xlabel(r"$log_{10}(P_{orb}/day)$")
-# plt.ylabel(r"$log_{10}(M_p/M_{Jup})$")
-# plt.title("Single mid_xost Star(Segments)")
-# # plt.savefig(r"D:\academics\4-2\Project\test\Fig\single\data1_segments.png", format="png", bbox_inches="tight")
-# plt.show()
+
 
 # #boundary index and boundary points
 # boundary_idx = np.array([])
