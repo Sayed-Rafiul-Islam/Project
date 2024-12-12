@@ -82,3 +82,58 @@ def plot_segments(
     fig = plt.savefig(os.path.join(output_dir, "data1_segments.png"), format="png", bbox_inches="tight")   
     plt.show()
     plt.close(fig)
+
+# Plotting aligned bins
+def plot_aligned_segments(
+    period1_log,
+    mass1_log,
+    x,
+    y,
+    xlim,
+    ylim,
+    xlabel,
+    ylabel,
+    title,
+    i
+):
+    plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
+    plt.plot(x, y, "black")
+    plt.xlim(xlim)
+    plt.ylim(ylim)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
+    fig = plt.savefig(os.path.join(output_dir, "1_aligned_bin_{numb}.png".format(numb=i)), format="png", bbox_inches="tight")   
+    plt.show()
+    plt.close(fig)
+    
+    
+# Plotting Boundary
+def plot_boundary(
+    period1_log,
+    mass1_log,
+    x,
+    y,
+    x1,
+    y1,
+    y2,
+    xlim,
+    ylim,
+    xlabel,
+    ylabel,
+    title,
+    i
+):
+    plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
+    plt.plot(x, y, "black")
+    plt.plot(x1, y1)
+    plt.plot(x1, y2)
+    plt.xlim(xlim)
+    plt.ylim(ylim)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
+    fig = plt.savefig(os.path.join(output_dir, "1_boundary_bin_{numb}.png".format(numb=i)), format="png", bbox_inches="tight")   
+    plt.show()
+    plt.close(fig)
+    
