@@ -19,6 +19,7 @@ if not os.path.exists(output_dir):
 def common_function(
     title,
     img_title,
+    n,
     x=[],
     y=[],
     k=[],
@@ -48,10 +49,13 @@ def common_function(
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.title(title)
-    if i == -10:
-        fig = plt.savefig(os.path.join(output_dir, img_title + ".png"), format="png", bbox_inches="tight") 
+    if n == -1:
+        fig = plt.savefig(os.path.join(output_dir, img_title + ".png"), format="png", bbox_inches="tight")
     else:
-       fig = plt.savefig(os.path.join(output_dir, img_title + "_{numb}.png".format(numb=i)), format="png", bbox_inches="tight")  
+        if i == -10:
+            fig = plt.savefig(os.path.join(output_dir, "Obs_" + str(n+1) + "_" + img_title + ".png"), format="png", bbox_inches="tight") 
+        else:
+            fig = plt.savefig(os.path.join(output_dir, "Obs_" + str(n+1) + "_" + img_title + "_" + str(i+1) + ".png"), format="png", bbox_inches="tight")  
     plt.show()
     plt.close(fig)
     
@@ -61,7 +65,8 @@ def plot_boundary_bin(
     points_y,
     mid_y,
     title,
-    k
+    k,
+    n
 ):
     plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
     plt.scatter(points_x, points_y, s=1, c='black', marker='o')
@@ -75,7 +80,7 @@ def plot_boundary_bin(
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.title(title)
-    fig = plt.savefig(os.path.join(output_dir, "boundary.png"), format="png", bbox_inches="tight")
+    fig = plt.savefig(os.path.join(output_dir, "Obs_" + str(n+1) + "_boundary.png"), format="png", bbox_inches="tight")
     plt.show()
     plt.close(fig)
     
