@@ -2,9 +2,9 @@ import numpy as np
 
 y  = np.linspace(-2.2,0.2,1251) #boundary initial curve
 
-a = np.random.uniform(-0.8, -0.3, 100)
-b = np.random.uniform(0.5, 1.0, 100)
-c = np.random.uniform(0.3, 0.7, 100)
+a = np.linspace(-0.55, -0.65, 100)
+b = np.linspace(0.75, 0.85, 100)
+c = np.linspace(0.5, 0.6, 100)
 
 #segment deviding
 k = [-2.2, -1.9, -1.6, -1.35, -1.15, -0.6, -0.2, 0.2] 

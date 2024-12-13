@@ -20,6 +20,7 @@ def common_function(
     title,
     img_title,
     n,
+    color="black",
     x=[],
     y=[],
     k=[],
@@ -31,7 +32,7 @@ def common_function(
 ):
     if(len(x) > 0 and len(y) > 0):
         print(x,y)
-        plt.plot(x, y, "black")
+        plt.plot(x, y, color)
         
     if(len(k) > 0 and len(mid_y) > 0):
         for i in range(len(mid_y)+1):

@@ -60,6 +60,7 @@ for n in range(len(c_l)):
         'Single host Star',
         "data1_guess",
         n,
+        "gray",
         x,
         y
     )
@@ -70,6 +71,7 @@ for n in range(len(c_l)):
         'Single host Star(Segments)',
         "data1_segments",
         n,
+        "gray",
         x,
         y,
         k,
@@ -160,6 +162,7 @@ for n in range(len(c_l)):
             'Single host Star',
             '1_aligned_bin',
             n,
+            "gray",
             x,
             y,
             [],
@@ -202,6 +205,7 @@ for n in range(len(c_l)):
             "Single host Star",
             "1_boundary_bin",
             n,
+            "black",
             b_x,
             b_y,
             [],
@@ -246,6 +250,7 @@ for n in range(len(c_l)):
         "Single Host Star(Boundary)",
         "1_result",
         n,
+        "black",
         x,
         y
     )
