@@ -211,7 +211,7 @@ for n in range(len(c_l)):
         )
     
         
-        
+
     results.append(result)
     # points_x = np.array(points_x)
     # points_y = np.array(points_y)
@@ -264,11 +264,9 @@ for i in range(len(results)):
         if len(r[j]) == 0:
             r[j].append(results[i][j][0])
             r[j].append(results[i][j][1])
-            print(r)
         else:
             r[j][0] = np.array(r[j][0]) + np.array(results[i][j][0])
-            r[j][1] = np.array(r[j][1]) + np.array(results[i][j][1])
-
+            # r[j][1] = np.array(r[j][1]) + np.array(results[i][j][1])
 
 r = np.array(r)
 
@@ -277,14 +275,13 @@ points_y = []
 
 for i in range(len(r)):
     r[i][0] = r[i][0]/len(results)
+    
     points_x.append(r[i][0])
     points_y.append(r[i][1])
     
     x1 = np.linspace(-0.5, 4, 500)
     y1 = np.repeat(k[i], 500)
     y2 = np.repeat(k[i + 1], 500)
-    
-    print(r[0][1])
 
     # Plotting Boundary
     common_function(
