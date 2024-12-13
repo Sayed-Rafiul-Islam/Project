@@ -31,7 +31,7 @@ def common_function(
     y2=[]
 ):
     if(len(x) > 0 and len(y) > 0):
-        print(x,y)
+        # print(x,y)
         plt.plot(x, y, color)
         
     if(len(k) > 0 and len(mid_y) > 0):
@@ -52,13 +52,21 @@ def common_function(
     plt.title(title)
     if n == -1:
         fig = plt.savefig(os.path.join(output_dir, img_title + ".png"), format="png", bbox_inches="tight")
+    elif n == "mean":
+        fig = plt.savefig(os.path.join(output_dir, img_title + "_" + str(i+1) + ".png"), format="png", bbox_inches="tight") 
+        plt.show()
+    elif n == "final":
+        fig = plt.savefig(os.path.join(output_dir, img_title + ".png"), format="png", bbox_inches="tight") 
+        plt.show()
     else:
         if i == -10:
             fig = plt.savefig(os.path.join(output_dir, "Obs_" + str(n+1) + "_" + img_title + ".png"), format="png", bbox_inches="tight") 
         else:
             fig = plt.savefig(os.path.join(output_dir, "Obs_" + str(n+1) + "_" + img_title + "_" + str(i+1) + ".png"), format="png", bbox_inches="tight")  
-    plt.show()
+    
+    # plt.show()
     plt.close(fig)
+    
     
 #  Plotting Boundary Bin
 def plot_boundary_bin(
@@ -81,188 +89,12 @@ def plot_boundary_bin(
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.title(title)
-    fig = plt.savefig(os.path.join(output_dir, "Obs_" + str(n+1) + "_boundary.png"), format="png", bbox_inches="tight")
-    plt.show()
+    if n == "final":
+        fig = plt.savefig(os.path.join(output_dir, "mean_final_boundary.png"), format="png", bbox_inches="tight")
+        plt.show()
+    else:
+        fig = plt.savefig(os.path.join(output_dir, "Obs_" + str(n+1) + "_boundary.png"), format="png", bbox_inches="tight")
+    # plt.show()
     plt.close(fig)
     
-    
-    
-    
-
-# # Ploting data1
-# def plot_data1(
-#     title
-# ):
-#     plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
-#     plt.xlim(xlim)
-#     plt.ylim(ylim)
-#     plt.xlabel(xlabel)
-#     plt.ylabel(ylabel)
-#     plt.title(title)
-#     fig = plt.savefig(os.path.join(output_dir, "data1.png"), format="png", bbox_inches="tight")   
-#     plt.show()
-#     plt.close(fig)
-    
-    
-# # Ploting initial guess 
-# def common_function(
-#     title,
-#     img_title,
-#     x=[],
-#     y=[],
-#     k=[],
-#     mid_y=[],
-#     i=-10,
-#     x1=[],
-#     y1=[],
-#     y2=[]
-# ):
-#     if(len(x) > 0 and len(y) > 0):
-#         print(x,y)
-#         plt.plot(x, y, "black")
-        
-#     if(len(k) > 0 and len(mid_y) > 0):
-#         for i in range(len(mid_y)+1):
-#             x1 = np.linspace(-0.5,4,500)
-#             y1 = np.repeat(k[i], 500)
-#             plt.plot(x1,y1,"-")
-            
-#     if len(x1) > 0 and len(y1) > 0 and len(y2) > 0:
-#         plt.plot(x1, y1)
-#         plt.plot(x1, y2)
-    
-#     plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
-#     plt.xlim(xlim)
-#     plt.ylim(ylim)
-#     plt.xlabel(xlabel)
-#     plt.ylabel(ylabel)
-#     plt.title(title)
-#     if i == -10:
-#         fig = plt.savefig(os.path.join(output_dir, img_title + ".png"), format="png", bbox_inches="tight") 
-#     else:
-#        fig = plt.savefig(os.path.join(output_dir, img_title + "_{numb}.png".format(numb=i)), format="png", bbox_inches="tight")  
-#     plt.show()
-#     plt.close(fig)
-    
-
-# # Ploting Segments
-# def plot_segments(
-#     title,
-#     x=[],
-#     y=[],
-#     k=[],
-#     mid_y=[]
-# ):
-#     if(len(x) > 0 and len(y) > 0):
-#         plt.plot(x, y, "black")
-        
-#     if(len(k) > 0 and len(mid_y) > 0):
-#         for i in range(len(mid_y)+1):
-#             x1 = np.linspace(-0.5,4,500)
-#             y1 = np.repeat(k[i], 500)
-#             plt.plot(x1,y1,"-")
-        
-#     plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
-#     plt.xlim(xlim)
-#     plt.ylim(ylim)
-#     plt.xlabel(xlabel)
-#     plt.ylabel(ylabel)
-#     plt.title(title)
-#     fig = plt.savefig(os.path.join(output_dir, "data1_segments.png"), format="png", bbox_inches="tight")   
-#     plt.show()
-#     plt.close(fig)
-
-# # Plotting aligned bins
-# def plot_aligned_segments(
-#     title,
-#     img_title,
-#     x,
-#     y,
-#     i=-10
-# ):
-#     plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
-#     plt.plot(x, y, "black")
-#     plt.xlim(xlim)
-#     plt.ylim(ylim)
-#     plt.xlabel(xlabel)
-#     plt.ylabel(ylabel)
-#     plt.title(title)
-#     if i == -10:
-#         print("if")
-#         plt.savefig(os.path.join(output_dir, img_title + ".png"), format="png", bbox_inches="tight") 
-#     else:
-#        print("else")
-#        fig = plt.savefig(os.path.join(output_dir, img_title + "_{numb}.png".format(numb=i)), format="png", bbox_inches="tight")  
-#     plt.show()
-#     plt.close(fig)
-    
-    
-# # Plotting Boundary
-# def plot_boundary(
-#     title,
-#     x,
-#     y,
-#     i,
-#     x1=[],
-#     y1=[],
-#     y2=[]
-# ):
-
-#     plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
-#     plt.plot(x, y, "black")
-#     if len(x1) > 0 and len(y1) > 0 and len(y2) > 0:
-#         plt.plot(x1, y1)
-#         plt.plot(x1, y2)
-#     plt.xlim(xlim)
-#     plt.ylim(ylim)
-#     plt.xlabel(xlabel)
-#     plt.ylabel(ylabel)
-#     plt.title(title)
-#     fig = plt.savefig(os.path.join(output_dir, "1_boundary_bin_{numb}.png".format(numb=i)), format="png", bbox_inches="tight")   
-#     plt.show()
-#     plt.close(fig)
-    
-    
-# #  Plotting Boundary Bin
-# def plot_boundary_bin(
-#     points_x,
-#     points_y,
-#     mid_y,
-#     title,
-#     k
-# ):
-#     plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
-#     plt.scatter(points_x, points_y, s=1, c='black', marker='o')
-#     for i in range(len(mid_y)+1):
-#         x1 = np.linspace(-0.5,4,500)
-#         y1 = np.repeat(k[i], 500)
-#         plt.plot(x1,y1,"-")
-
-#     plt.xlim(xlim)
-#     plt.ylim(ylim)
-#     plt.xlabel(xlabel)
-#     plt.ylabel(ylabel)
-#     plt.title(title)
-#     fig = plt.savefig(os.path.join(output_dir, "boundary.png"), format="png", bbox_inches="tight")
-#     plt.show()
-#     plt.close(fig)
-    
-    
-# # Plotting Result
-# def plot_result(
-#     x,
-#     y,
-#     title,
-# ):
-#     plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
-#     plt.plot(x, y, "black")
-#     plt.xlim(xlim)
-#     plt.ylim(ylim)
-#     plt.xlabel(xlabel)
-#     plt.ylabel(ylabel)
-#     plt.title(title)
-#     fig = plt.savefig(os.path.join(output_dir, "1_result.png"), format="png", bbox_inches="tight")   
-#     plt.show()
-#     plt.close(fig)
  
-    

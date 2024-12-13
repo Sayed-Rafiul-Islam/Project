@@ -11,7 +11,6 @@ k = [-2.2, -1.9, -1.6, -1.35, -1.15, -0.6, -0.2, 0.2]
 
 # midpoint (y) for tangent line
 mid_y = np.array([(a + b)/2 for a, b in zip(k[0:-1:], k[1:])])
-print(mid_y)
 
 def h(y):
     curve_lines_data = []
