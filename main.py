@@ -273,8 +273,29 @@ r = np.array(r)
 points_x = []
 points_y = []
 
+sd_x = []
+# sd_y = []
+
+s = [[],[],[],[],[],[],[]]
 for i in range(len(r)):
-    r[i][0] = r[i][0]/len(results)
+    r[i][0] = r[i][0]/len(results) #mean
+    
+    for j in range(len(results)):
+        if len(s[i]) == 0:
+            s[i].append((np.array(r[i][0]) - np.array(results[j][i][0]))**2)
+            # s[i].append(np.array(results[j][i][1]))
+        else:
+            s[i][0] = s[i][0] + ((np.array(r[i][0]) - np.array(results[j][i][0]))**2)
+
+
+    s[i][0] = np.sqrt(s[i][0]/(len(results)))
+    
+    sd_x.append(s[i][0][0])
+    # sd_y.append(s[i][1])
+    # s = np.array(s)
+    # for j in range(len(s)):
+    #     s[j][0] = np.sqrt(s[j][0]/(len(results)-1))
+    #     sd_x.append(s[])  
     
     points_x.append(r[i][0])
     points_y.append(r[i][1])
@@ -301,6 +322,11 @@ for i in range(len(r)):
     
 points_x = np.array(points_x)
 points_y = np.array(points_y)
+
+sd_x = np.array(sd_x)
+# sd_y = np.array(sd_y)
+print("Standard Deviation : ")
+print(sd_x)
     
 # Plotting Boundary Bin
    
@@ -310,7 +336,9 @@ plot_boundary_bin(
     c_l[0][3][1],
     "Single Host Star(Boundary Bins)",
     c_l[0][2],
-    "final"
+    "final",
+    # sd_x,
+    # sd_y
 )
 
 

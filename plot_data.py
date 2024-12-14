@@ -28,7 +28,7 @@ def common_function(
     i=-10,
     x1=[],
     y1=[],
-    y2=[]
+    y2=[],
 ):
     if(len(x) > 0 and len(y) > 0):
         # print(x,y)
@@ -75,7 +75,9 @@ def plot_boundary_bin(
     mid_y,
     title,
     k,
-    n
+    n,
+    sd_x=[],
+    sd_y=[],
 ):
     plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
     plt.scatter(points_x, points_y, s=1, c='black', marker='o')
@@ -83,6 +85,8 @@ def plot_boundary_bin(
         x1 = np.linspace(-0.5,4,500)
         y1 = np.repeat(k[i], 500)
         plt.plot(x1,y1,"-")
+    # if(len(sd_x) > 0 and len(sd_y) > 0):
+    #     plt.fill_between(np.array(sd_y).flatten(), np.array(points_x - sd_x).flatten(), np.array(points_x + sd_x).flatten(),  where=None, interpolate=False, alpha=0.3, label="Std Deviation", color="red" )
 
     plt.xlim(xlim)
     plt.ylim(ylim)
