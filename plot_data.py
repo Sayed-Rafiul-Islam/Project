@@ -54,7 +54,7 @@ def common_function(
         fig = plt.savefig(os.path.join(output_dir, img_title + ".png"), format="png", bbox_inches="tight")
     elif n == "mean":
         fig = plt.savefig(os.path.join(output_dir, img_title + "_" + str(i+1) + ".png"), format="png", bbox_inches="tight") 
-        plt.show()
+
     elif n == "final":
         fig = plt.savefig(os.path.join(output_dir, img_title + ".png"), format="png", bbox_inches="tight") 
         plt.show()
@@ -75,9 +75,7 @@ def plot_boundary_bin(
     mid_y,
     title,
     k,
-    n,
-    sd_x=[],
-    sd_y=[],
+    n
 ):
     plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
     plt.scatter(points_x, points_y, s=1, c='black', marker='o')
@@ -85,8 +83,6 @@ def plot_boundary_bin(
         x1 = np.linspace(-0.5,4,500)
         y1 = np.repeat(k[i], 500)
         plt.plot(x1,y1,"-")
-    # if(len(sd_x) > 0 and len(sd_y) > 0):
-    #     plt.fill_between(np.array(sd_y).flatten(), np.array(points_x - sd_x).flatten(), np.array(points_x + sd_x).flatten(),  where=None, interpolate=False, alpha=0.3, label="Std Deviation", color="red" )
 
     plt.xlim(xlim)
     plt.ylim(ylim)
@@ -94,11 +90,42 @@ def plot_boundary_bin(
     plt.ylabel(ylabel)
     plt.title(title)
     if n == "final":
-        fig = plt.savefig(os.path.join(output_dir, "mean_final_boundary.png"), format="png", bbox_inches="tight")
-        plt.show()
+        fig = plt.savefig(os.path.join(output_dir, "mean_sd_final_boundary.png"), format="png", bbox_inches="tight")
+        # plt.show()
     else:
         fig = plt.savefig(os.path.join(output_dir, "Obs_" + str(n+1) + "_boundary.png"), format="png", bbox_inches="tight")
     # plt.show()
     plt.close(fig)
+    
+
+def final_curve(
+    # curves,
+    mean_curve,
+    std_x_curve,
+    y,
+    title,
+    img_title
+):
+    plt.fill_betweenx(y,
+                    mean_curve[0]+std_x_curve,
+                    mean_curve[0]-std_x_curve,
+                    color='red', alpha=0.3,
+                    label='Standard Deviation'
+                    )
+    
+    plt.plot(mean_curve[0], mean_curve[1], "black", label='Mean') 
+    plt.scatter(period1_log, mass1_log, s=1, c='#26495c', marker='o')
+    plt.xlim(xlim)
+    plt.ylim(ylim)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.legend()
+    plt.title(title)
+
+    fig = plt.savefig(os.path.join(output_dir, img_title + ".png"), format="png", bbox_inches="tight")
+    
+    plt.show()
+    # plt.close(fig)
+    
     
  

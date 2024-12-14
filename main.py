@@ -28,6 +28,7 @@ common_function(
 
 
 results = []
+curves = []
 
 
 # range(len(c_l))
@@ -71,8 +72,8 @@ for n in range(len(c_l)):
 
     #boundary index and boundary points
     boundary_idx = np.array([])
-    # points_x = []
-    # points_y = []
+    points_x = []
+    points_y = []
     
     result = []
 
@@ -169,8 +170,8 @@ for n in range(len(c_l)):
         boundary_idx = np.append(boundary_idx, decision)
         b_y = np.linspace(y1[1], y2[1], 50)
         b_x = dydx[i] * (b_y - p_y[decision]) + p_x[decision]
-        # points_x.append(b_x)
-        # points_y.append(b_y)
+        points_x.append(b_x)
+        points_y.append(b_y)
         result.append([b_x,b_y])
 
         # hist ploting and boundary visualisation
@@ -213,153 +214,175 @@ for n in range(len(c_l)):
         
 
     results.append(result)
-    # points_x = np.array(points_x)
-    # points_y = np.array(points_y)
-    # print(boundary_idx)
+    points_x = np.array(points_x)
+    points_y = np.array(points_y)
+    print(boundary_idx)
 
-    # # Plotting Boundary Bin
+    # Plotting Boundary Bin
     
-    # plot_boundary_bin(
-    #     points_x,
-    #     points_y,
-    #     mid_y,
-    #     "Single Host Star(Boundary Bins)",
-    #     k,
-    #     n
-    # )
+    plot_boundary_bin(
+        points_x,
+        points_y,
+        mid_y,
+        "Single Host Star(Boundary Bins)",
+        k,
+        n
+    )
+
+    A = [[np.sum(np.square(points_y)), np.sum(points_y), len(points_y)],[np.sum(np.power(points_y,3)), np.sum(np.square(points_y)), np.sum(points_y)], [np.sum(np.power(points_y,4)), np.sum(np.power(points_y,3)), np.sum(np.square(points_y))]]
+    B = [np.sum(points_x), np.sum(points_x*points_y), np.sum(points_x*np.square(points_y))]
+
+    C = np.matmul(np.linalg.inv(A), B)
+    x = C[0]*y**2 + C[1]*y + C[2]
+    # print(C)
     
+    curves.append([x,y])
     
-
-
-    # #curvefitting
-    # def func(y,a,b,d):
-    #     x = a*(y+b)**2 + d
-    #     return x
-
-    # A = [[np.sum(np.square(points_y)), np.sum(points_y), len(points_y)],[np.sum(np.power(points_y,3)), np.sum(np.square(points_y)), np.sum(points_y)], [np.sum(np.power(points_y,4)), np.sum(np.power(points_y,3)), np.sum(np.square(points_y))]]
-    # B = [np.sum(points_x), np.sum(points_x*points_y), np.sum(points_x*np.square(points_y))]
-
-    # C = np.matmul(np.linalg.inv(A), B)
-    # x = C[0]*y**2 + C[1]*y + C[2]
-    # # print(C)
+    # print(x,y)
     
-  
-
-    # #Plotting Result
-    # common_function(
-    #     "Single Host Star(Boundary)",
-    #     "1_result",
-    #     n,
-    #     "black",
-    #     x,
-    #     y
-    # )
+    # Plotting Result
+    common_function(
+        "Single Host Star(Boundary)",
+        "1_result",
+        n,
+        "black",
+        x,
+        y
+    )
     
     
 print("------------------------------------------------------------------------------------------------------------")
 
-r = [[],[],[],[],[],[],[]]
-for i in range(len(results)):
-    for j in range(7):
-        if len(r[j]) == 0:
-            r[j].append(results[i][j][0])
-            r[j].append(results[i][j][1])
-        else:
-            r[j][0] = np.array(r[j][0]) + np.array(results[i][j][0])
-            # r[j][1] = np.array(r[j][1]) + np.array(results[i][j][1])
+mean_curve = np.mean(curves, axis=0)
+std_x_curve = np.std(curves, axis=0)[0]
 
-r = np.array(r)
+print("Standard Deviation : ")
+print(std_x_curve)
 
-points_x = []
-points_y = []
-
-sd_x = []
-# sd_y = []
-
-s = [[],[],[],[],[],[],[]]
-for i in range(len(r)):
-    r[i][0] = r[i][0]/len(results) #mean
-    
-    for j in range(len(results)):
-        if len(s[i]) == 0:
-            s[i].append((np.array(r[i][0]) - np.array(results[j][i][0]))**2)
-            # s[i].append(np.array(results[j][i][1]))
-        else:
-            s[i][0] = s[i][0] + ((np.array(r[i][0]) - np.array(results[j][i][0]))**2)
-
-
-    s[i][0] = np.sqrt(s[i][0]/(len(results)))
-    
-    sd_x.append(s[i][0][0])
-    # sd_y.append(s[i][1])
-    # s = np.array(s)
-    # for j in range(len(s)):
-    #     s[j][0] = np.sqrt(s[j][0]/(len(results)-1))
-    #     sd_x.append(s[])  
-    
-    points_x.append(r[i][0])
-    points_y.append(r[i][1])
-    
-    x1 = np.linspace(-0.5, 4, 500)
-    y1 = np.repeat(k[i], 500)
-    y2 = np.repeat(k[i + 1], 500)
-
-    # Plotting Boundary
-    common_function(
-        "Single host Star",
-        "1_mean_boundary_bin",
-        "mean",
-        "black",
-        r[i][0],
-        r[i][1],
-        [],
-        [],
-        i,
-        x1,
-        y1,
-        y2
+final_curve(
+    mean_curve,
+    std_x_curve,
+    c_l[0][1],
+    "Final Results for Single Host Star",
+    "final_1_result"
     )
     
-points_x = np.array(points_x)
-points_y = np.array(points_y)
 
-sd_x = np.array(sd_x)
-# sd_y = np.array(sd_y)
-print("Standard Deviation : ")
-print(sd_x)
+# common_function(
+#        "Single Host Star(Boundary)",
+#        "1_result",
+#        "mean",
+#        "black",
+#        z[0],
+#        z[1]
+#    )
     
-# Plotting Boundary Bin
+
+
+# r = [[],[],[],[],[],[],[]]
+# for i in range(len(results)):
+#     for j in range(7):
+#         if len(r[j]) == 0:
+#             r[j].append(results[i][j][0])
+#             r[j].append(results[i][j][1])
+#         else:
+#             r[j][0] = np.array(r[j][0]) + np.array(results[i][j][0])
+#             # r[j][1] = np.array(r[j][1]) + np.array(results[i][j][1])
+
+# r = np.array(r)
+
+# points_x = []
+# points_y = []
+
+# sd_x = []
+# # sd_y = []
+
+# s = [[],[],[],[],[],[],[]]
+# for i in range(len(r)):
+#     r[i][0] = r[i][0]/len(results) #mean
+    
+#     for j in range(len(results)):
+#         if len(s[i]) == 0:
+#             s[i].append((np.array(r[i][0]) - np.array(results[j][i][0]))**2)
+#             # s[i].append(np.array(results[j][i][1]))
+#         else:
+#             s[i][0] = s[i][0] + ((np.array(r[i][0]) - np.array(results[j][i][0]))**2)
+
+
+#     s[i][0] = np.sqrt(s[i][0]/(len(results)))
+    
+#     sd_x.append(s[i][0][0])
+#     # sd_y.append(s[i][1])
+#     # s = np.array(s)
+#     # for j in range(len(s)):
+#     #     s[j][0] = np.sqrt(s[j][0]/(len(results)-1))
+#     #     sd_x.append(s[])  
+    
+#     points_x.append(r[i][0])
+#     points_y.append(r[i][1])
+    
+#     x1 = np.linspace(-0.5, 4, 500)
+#     y1 = np.repeat(k[i], 500)
+#     y2 = np.repeat(k[i + 1], 500)
+
+#     # Plotting Boundary
+#     common_function(
+#         "Single host Star",
+#         "1_mean_boundary_bin",
+#         "mean",
+#         "black",
+#         r[i][0],
+#         r[i][1],
+#         [],
+#         [],
+#         i,
+#         x1,
+#         y1,
+#         y2
+#     )
+    
+# points_x = np.array(points_x)
+# points_y = np.array(points_y)
+
+# sd_x = np.array(sd_x)
+# # sd_y = np.array(sd_y)
+# print("Standard Deviation : ")
+# print(sd_x)
+    
+# # Plotting Boundary Bin
    
-plot_boundary_bin(
-    points_x,
-    points_y,
-    c_l[0][3][1],
-    "Single Host Star(Boundary Bins)",
-    c_l[0][2],
-    "final",
-    # sd_x,
-    # sd_y
-)
+# plot_boundary_bin(
+#     points_x,
+#     points_y,
+#     c_l[0][3][1],
+#     "Single Host Star(Boundary Bins)",
+#     c_l[0][2],
+#     "final",
+#     # sd_x,
+#     # sd_y
+# )
 
 
-#curvefitting
-y = c_l[0][1]
-A = [[np.sum(np.square(points_y)), np.sum(points_y), len(points_y)],[np.sum(np.power(points_y,3)), np.sum(np.square(points_y)), np.sum(points_y)], [np.sum(np.power(points_y,4)), np.sum(np.power(points_y,3)), np.sum(np.square(points_y))]]
-B = [np.sum(points_x), np.sum(points_x*points_y), np.sum(points_x*np.square(points_y))]
-C = np.matmul(np.linalg.inv(A), B)
-x = C[0]*y**2 + C[1]*y + C[2]
-print(C)
+# #curvefitting
+# y = c_l[0][1]
+# A = [[np.sum(np.square(points_y)), np.sum(points_y), len(points_y)],[np.sum(np.power(points_y,3)), np.sum(np.square(points_y)), np.sum(points_y)], [np.sum(np.power(points_y,4)), np.sum(np.power(points_y,3)), np.sum(np.square(points_y))]]
+# B = [np.sum(points_x), np.sum(points_x*points_y), np.sum(points_x*np.square(points_y))]
+# C = np.matmul(np.linalg.inv(A), B)
+# x = C[0]*y**2 + C[1]*y + C[2]
+
+# print(x,y)
+# print(C)
 
 
-#Plotting Result
-common_function(
-    "Single Host Star(Boundary)",
-    "1_final_result",
-    "final",
-    "black",
-    x,
-    y
-)
+# #Plotting Result
+# common_function(
+#     "Single Host Star(Boundary)",
+#     "1_final_result",
+#     "final",
+#     "black",
+#     x,
+#     y
+# )
 
 
 # print(r)
